@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مراجعة التوفاس - المهندس أحمد توحيد</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0a1628;
+            --bg-light: #0f2140;
+            --fg: #f0f4f8;
+            --muted: #7a8ba3;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --card: #132743;
+            --card-hover: #1a3456;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Background Effects */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(59, 130, 246, 0.15);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(96, 165, 250, 0.1);
+            bottom: 20%;
+            left: -100px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: rgba(59, 130, 246, 0.12);
+            top: 60%;
+            right: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 30px) scale(1.02); }
+        }
+
+        /* Typography */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 50%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+
+        /* Card Styles */
+        .video-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .video-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+            border-color: var(--accent);
+            background: var(--card-hover);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-light);
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Play Button */
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        .play-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            margin-right: -2px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tag-secondary {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-light);
+        }
+
+        .tag-term {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .tag-part {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        /* Search */
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            color: var(--fg);
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: var(--muted);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        /* Timeline */
+        .timeline-item {
+            position: relative;
+            padding-right: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            right: 5px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        /* Stats */
+        .stat-card {
+            background: linear-gradient(135deg, var(--card) 0%, var(--bg-light) 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 22, 40, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            border-radius: 2px;
+            margin: 0 auto 40px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-light);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+        }
+
+        .no-results svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* Counter Animation */
+        .counter {
+            display: inline-block;
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 640px) {
+            .floating-orb {
+                display: none;
+            }
+            
+            .stat-number {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-pattern"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                    </svg>
+                </div>
+                <span class="font-bold text-lg">المهندس أحمد توحيد</span>
+            </div>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#videos" class="text-gray-300 hover:text-white transition-colors">الفيديوهات</a>
+                <a href="#plan" class="text-gray-300 hover:text-white transition-colors">خطة المذاكرة</a>
+                <a href="#subscribe" class="btn-primary text-sm">اشترك الآن</a>
+            </div>
+            <button class="md:hidden p-2" id="mobileMenuBtn" aria-label="فتح القائمة">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-[#0f2140] border-t border-[#1e3a5f] px-4 py-4" id="mobileMenu">
+            <div class="flex flex-col gap-4">
+                <a href="#videos" class="text-gray-300 hover:text-white transition-colors py-2">الفيديوهات</a>
+                <a href="#plan" class="text-gray-300 hover:text-white transition-colors py-2">خطة المذاكرة</a>
+                <a href="#subscribe" class="btn-primary text-center mt-2">اشترك الآن</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center pt-20 pb-12 px-4">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="text-center mb-12">
+                    <div class="fade-up stagger-1 inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 mb-6">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-400">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12,6 12,12 16,14"/>
+                        </svg>
+                        <span class="text-blue-400 text-sm font-medium">الامتحان يوم 30 مارس - ابدأ المراجعة الآن</span>
+                    </div>
+                    
+                    <h1 class="fade-up stagger-2 text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+                        مراجعة شاملة لامتحان
+                        <span class="gradient-text block mt-2">التوفاس 2025</span>
+                    </h1>
+                    
+                    <p class="fade-up stagger-3 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+                        17 فصل + 10 تدريبات مع الحل التفصيلي
+                        <br>
+                        استعد للامتحان بخطة منظمة ومحتوى حصري
+                    </p>
+                    
+                    <div class="fade-up stagger-4 flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#videos" class="btn-primary text-lg">
+                            ابدأ المشاهدة الآن
+                        </a>
+                        <a href="#plan" class="btn-secondary text-lg">
+                            تعرف على الخطة
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="fade-up stagger-5 grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+                    <div class="stat-card">
+                        <div class="stat-number counter" data-target="17">0</div>
+                        <div class="text-gray-400 text-sm mt-1">فصل كامل</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number counter" data-target="10">0</div>
+                        <div class="text-gray-400 text-sm mt-1">تدريبات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number counter" data-target="200">0</div>
+                        <div class="text-gray-400 text-sm mt-1">سؤال محلول</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10+</div>
+                        <div class="text-gray-400 text-sm mt-1">ساعات شرح</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plan Section -->
+        <section id="plan" class="py-20 px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">خطة المذاكرة</h2>
+                    <div class="section-divider"></div>
+                    <p class="text-gray-400 max-w-xl mx-auto">
+                        خطة منظمة لاستغلال الوقت قبل الامتحان بفعالية
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Part 1 -->
+                    <div class="fade-up stagger-1 bg-gradient-to-br from-[#132743] to-[#0f2140] border border-[#1e3a5f] rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                                <span class="text-blue-400 font-bold text-lg">1</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">الجزء الأول</h3>
+                                <p class="text-gray-400 text-sm">1 - 13 مارس</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="timeline-item pb-4">
+                                <p class="text-gray-300">شرح الـ 17 فصل كاملة</p>
+                            </div>
+                            <div class="timeline-item pb-4">
+                                <p class="text-gray-300">حل 60 سؤال على الفصول</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="text-gray-300">ضمان فهم الأساسيات جيداً</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-[#1e3a5f]">
+                            <span class="tag tag-part">الأساسيات</span>
+                        </div>
+                    </div>
+
+                    <!-- Part 2 -->
+                    <div class="fade-up stagger-2 bg-gradient-to-br from-[#132743] to-[#0f2140] border border-[#1e3a5f] rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center">
+                                <span class="text-green-400 font-bold text-lg">2</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">الجزء الثاني</h3>
+                                <p class="text-gray-400 text-sm">14 - 25 مارس</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="timeline-item pb-4">
+                                <p class="text-gray-300">حل 10 تدريبات (20 سؤال كل تدريب)</p>
+                            </div>
+                            <div class="timeline-item pb-4">
+                                <p class="text-gray-300">شرح تفصيلي لكل تدريب</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="text-gray-300">الفيديوهات تُنزل أول بأول</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-[#1e3a5f]">
+                            <span class="tag tag-term">التدريبات</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Days -->
+                <div class="fade-up stagger-3 mt-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 text-center">
+                    <div class="flex items-center justify-center gap-3 mb-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-yellow-400">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <h4 class="font-bold text-lg">الأيام المتبقية للمراجعة النهائية</h4>
+                    </div>
+                    <p class="text-gray-400">26 - 29 مارس: مراجعة شاملة قبل الامتحان</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos Section -->
+        <section id="videos" class="py-20 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">الفيديوهات</h2>
+                    <div class="section-divider"></div>
+                    <p class="text-gray-400 max-w-xl mx-auto mb-8">
+                        10 فيديوهات تغطي جميع الفصول والتدريبات
+                    </p>
+
+                    <!-- Search -->
+                    <div class="search-container fade-up">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            class="search-input" 
+                            placeholder="ابحث برقم الفصل أو التدريب..."
+                            aria-label="البحث في الفيديوهات"
+                        >
+                        <div class="search-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Cards Grid -->
+                <div class="grid md:grid-cols-2 gap-6" id="videosGrid">
+                    <!-- Cards will be rendered by JS -->
+                </div>
+
+                <!-- No Results Message -->
+                <div class="no-results hidden" id="noResults">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mx-auto">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                        <path d="M8 8l6 6M14 8l-6 6"/>
+                    </svg>
+                    <p class="text-lg font-medium">لا توجد نتائج</p>
+                    <p class="text-sm">جرب البحث برقم الفصل أو التدريب</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscribe Section -->
+        <section id="subscribe" class="py-20 px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">اشترك الآن</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="fade-up bg-gradient-to-br from-[#132743] to-[#0f2140] border border-[#1e3a5f] rounded-3xl overflow-hidden">
+                    <!-- Pricing Header -->
+                    <div class="bg-gradient-to-r from-blue-500/20 to-blue-600/20 p-6 text-center">
+                        <div class="inline-flex items-center gap-2 bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                            اشتراك مدى الحياة
+                        </div>
+                        <div class="flex items-baseline justify-center gap-2">
+                            <span class="text-5xl font-black gradient-text">35</span>
+                            <span class="text-2xl text-gray-400">جنيه فقط</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">سعر رمزي لفترة محدودة</p>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="p-6 space-y-4">
+                        <h4 class="font-bold text-lg mb-4">هتحصل عليه:</h4>
+                        
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-green-400">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">الوصول لجميع الفيديوهات</p>
+                                <p class="text-gray-400 text-sm">10 فيديوهات شرح وتدريبات</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-green-400">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">كتاب الشرح مجاناً</p>
+                                <p class="text-gray-400 text-sm">ملف PDF شامل للفصول</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-green-400">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">ورقة ملخص الـ 17 فصل والتدريبات</p>
+                                <p class="text-gray-400 text-sm">ملخص شامل للمراجعة السريعة</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-green-400">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">جروب متابعة خاص</p>
+                                <p class="text-gray-400 text-sm">للرد على استفساراتك قبل الامتحان</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Options -->
+                    <div class="p-6 bg-[#0a1628] space-y-4">
+                        <p class="text-center text-gray-400 mb-4">
+                            مش هتلاقي فرصة تانية - استغل العرض دلوقتي
+                        </p>
+
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/201501021670" target="_blank" 
+                           class="flex items-center gap-4 bg-green-500/10 border border-green-500/30 rounded-xl p-4 hover:bg-green-500/20 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center flex-shrink-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-bold text-green-400 group-hover:text-green-300">تواصل عبر واتساب</p>
+                                <p class="text-gray-400 text-sm" dir="ltr">01501021670</p>
+                            </div>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400 group-hover:text-white transition-colors rotate-180">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+
+                        <!-- Vodafone Cash -->
+                        <div class="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                        <line x1="1" y1="10" x2="23" y2="10"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-purple-400">فودافون كاش</p>
+                                    <p class="text-gray-400 text-sm" dir="ltr">01013598053</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-purple-500/20">
+                                <p class="text-gray-400 text-sm">
+                                    <span class="text-yellow-400 font-medium">ملاحظة:</span>
+                                    بعد الدفع، أرسل صورة إثبات الدفع + البريد الإلكتروني على الواتساب
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-4 border-t border-[#1e3a5f]">
+            <div class="max-w-6xl mx-auto text-center">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                        </svg>
+                    </div>
+                    <span class="font-bold">المهندس أحمد توحيد</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    جميع الحقوق محفوظة 2025
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Video Data
+        const videos = [
+            {
+                id: 1,
+                title: "الفصل 1 لـ 4",
+                description: "شرح كامل وحل التدريبات من الفصل 1 الى الفصل 4",
+                url: "https://drive.google.com/file/d/1cRIoiZtTJT58Bt5amAxiy_xEXa9ET5ms/view?usp=drive_link",
+                duration: "35 دقيقة",
+                views: 1247,
+                type: "chapters",
+                part: 1
+            },
+            {
+                id: 2,
+                title: "الفصل 5 لـ 8",
+                description: "شرح كامل وحل التدريبات من الفصل 5 الى الفصل 8",
+                url: "https://drive.google.com/file/d/1-ozxskC0h8xEyv_4lPVNmeR6iTJ2-Yb-/view?usp=drive_link",
+                duration: "38 دقيقة",
+                views: 1089,
+                type: "chapters",
+                part: 1
+            },
+            {
+                id: 3,
+                title: "الفصل 9 لـ 11",
+                description: "شرح كامل وحل التدريبات من الفصل 9 الى الفصل 11",
+                url: "https://drive.google.com/file/d/1vVtfv5AMeXgYxmY_5Z7PFRoKLDBuPNvu/view?usp=drive_link",
+                duration: "23 دقيقة",
+                views: 956,
+                type: "chapters",
+                part: 1
+            },
+            {
+                id: 4,
+                title: "الفصل 12 لـ 14",
+                description: "شرح كامل وحل التدريبات من الفصل 12 الى الفصل 14",
+                url: "https://drive.google.com/file/d/1xYr1KyfKgMCq-VdiDOVq-fVUikPuob4h/view?usp=drive_link",
+                duration: "27 دقيقة",
+                views: 834,
+                type: "chapters",
+                part: 1
+            },
+            {
+                id: 5,
+                title: "الفصل 15 لـ 17",
+                description: "شرح كامل وحل التدريبات من الفصل 15 الى الفصل 17",
+                url: "https://drive.google.com/file/d/11eh5YUjIAr2UPy-5FiNlOvvPhunMP-Dc/view?usp=drive_link",
+                duration: "35 دقيقة",
+                views: 723,
+                type: "chapters",
+                part: 1
+            },
+            {
+                id: 6,
+                title: "التدريب 1 و 2",
+                description: "شرح كامل وحل التدريبات من 1 ل 2",
+                url: "#",
+                duration: "55 دقيقة",
+                views: 0,
+                type: "exercises",
+                part: 2
+            },
+            {
+                id: 7,
+                title: "التدريب 3 و 4",
+                description: "شرح كامل وحل التدريبات من 3 ل 4",
+                url: "#",
+                duration: "50 دقيقة",
+                views: 0,
+                type: "exercises",
+                part: 2
+            },
+            {
+                id: 8,
+                title: "التدريب 5 و 6",
+                description: "شرح كامل وحل التدريبات من 5 ل 6",
+                url: "#",
+                duration: "52 دقيقة",
+                views: 0,
+                type: "exercises",
+                part: 2
+            },
+            {
+                id: 9,
+                title: "التدريب 7 و 8",
+                description: "شرح كامل وحل التدريبات من 7 ل 8",
+                url: "#",
+                duration: "48 دقيقة",
+                views: 0,
+                type: "exercises",
+                part: 2
+            },
+            {
+                id: 10,
+                title: "التدريب 9 و 10",
+                description: "شرح كامل وحل التدريبات من 9 ل 10",
+                url: "#",
+                duration: "55 دقيقة",
+                views: 0,
+                type: "exercises",
+                part: 2
+            }
+        ];
+
+        // DOM Elements - Initialize after defining videos
+        let videosGrid = null;
+        let searchInput = null;
+        let noResults = null;
+        let navbar = null;
+        let mobileMenuBtn = null;
+        let mobileMenu = null;
+
+        // Render Video Cards
+        function renderVideos(videosToRender) {
+            if (!videosGrid || !noResults) return;
+            
+            if (videosToRender.length === 0) {
+                videosGrid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            videosGrid.innerHTML = videosToRender.map((video, index) => `
+                <article class="video-card fade-up" style="transition-delay: ${index * 0.1}s">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tag tag-secondary">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                                    </svg>
+                                    أولي ثانوي
+                                </span>
+                                <span class="tag tag-term">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                    ترم أول
+                                </span>
+                                <span class="tag tag-part">
+                                    الجزء ${video.part}
+                                </span>
+                            </div>
+                            <div class="play-btn" onclick="playVideo('${video.url}')" role="button" aria-label="تشغيل الفيديو" tabindex="0">
+                                <svg viewBox="0 0 24 24">
+                                    <polygon points="5,3 19,12 5,21"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold mb-2">${video.title}</h3>
+                        <p class="text-gray-400 text-sm mb-4">${video.description}</p>
+
+                        <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                            <div class="flex items-center gap-1">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                <span>المهندس أحمد توحيد</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-[#1e3a5f]">
+                            <div class="flex items-center gap-4 text-sm text-gray-400">
+                                <div class="flex items-center gap-1">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12,6 12,12 16,14"/>
+                                    </svg>
+                                    <span>${video.duration}</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <span>${formatViews(video.views)}</span>
+                                </div>
+                            </div>
+                            <button onclick="playVideo('${video.url}')" class="text-blue-400 hover:text-blue-300 font-medium text-sm flex items-center gap-1 transition-colors">
+                                مشاهدة
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+
+            // Trigger fade-in animation
+            setTimeout(() => {
+                document.querySelectorAll('.video-card.fade-up').forEach(card => {
+                    card.classList.add('visible');
+                });
+            }, 100);
+        }
+
+        // Format Views
+        function formatViews(views) {
+            if (views >= 1000) {
+                return (views / 1000).toFixed(1) + 'K';
+            }
+            return views;
+        }
+
+        // Play Video
+        function playVideo(url) {
+            if (url === '#') {
+                alert('هذا الفيديو سيتم رفعه قريباً. تابعنا للحصول على التحديثات!');
+                return;
+            }
+            window.open(url, '_blank');
+        }
+
+        // Search Function
+        function handleSearch(e) {
+            const query = e.target.value.trim().toLowerCase();
+            
+            if (query === '') {
+                renderVideos(videos);
+                return;
+            }
+
+            const filtered = videos.filter(video => {
+                const titleMatch = video.title.toLowerCase().includes(query);
+                const descMatch = video.description.toLowerCase().includes(query);
+                
+                // Search by chapter number
+                const chapterMatch = query.match(/(\d+)/);
+                if (chapterMatch) {
+                    const num = parseInt(chapterMatch[1]);
+                    if (video.type === 'chapters') {
+                        // Check if number is within chapter range
+                        const rangeMatch = video.title.match(/(\d+).*?(\d+)/);
+                        if (rangeMatch) {
+                            const start = parseInt(rangeMatch[1]);
+                            const end = parseInt(rangeMatch[2]);
+                            if (num >= start && num <= end) return true;
+                        }
+                    } else if (video.type === 'exercises') {
+                        // Check if number is within exercise range
+                        const rangeMatch = video.title.match(/(\d+).*?(\d+)/);
+                        if (rangeMatch) {
+                            const start = parseInt(rangeMatch[1]);
+                            const end = parseInt(rangeMatch[2]);
+                            if (num >= start && num <= end) return true;
+                        }
+                    }
+                }
+                
+                // Search by keywords
+                const keywords = ['فصل', 'تدريب', 'جزء'];
+                let keywordMatch = false;
+                
+                if (query.includes('فصل') || query.includes('chapter')) {
+                    keywordMatch = video.type === 'chapters';
+                }
+                if (query.includes('تدريب') || query.includes('exercise')) {
+                    keywordMatch = video.type === 'exercises';
+                }
+                
+                return titleMatch || descMatch || keywordMatch;
+            });
+
+            renderVideos(filtered);
+        }
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter[data-target]');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Intersection Observer for Fade-in
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-up').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Navbar Scroll Effect
+        function handleScroll() {
+            if (!navbar) return;
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            if (!mobileMenu) return;
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Close mobile menu on link click
+        function setupMobileMenuLinks() {
+            if (!mobileMenu) return;
+            const links = mobileMenu.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize DOM elements
+            videosGrid = document.getElementById('videosGrid');
+            searchInput = document.getElementById('searchInput');
+            noResults = document.getElementById('noResults');
+            navbar = document.getElementById('navbar');
+            mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            mobileMenu = document.getElementById('mobileMenu');
+
+            // Render videos
+            renderVideos(videos);
+
+            // Setup search
+            if (searchInput) {
+                searchInput.addEventListener('input', handleSearch);
+            }
+
+            // Setup scroll animations
+            setupScrollAnimations();
+
+            // Setup navbar scroll
+            window.addEventListener('scroll', handleScroll);
+
+            // Setup mobile menu
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            setupMobileMenuLinks();
+
+            // Animate counters when visible
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.stat-card');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add keyboard support for play buttons
+            document.querySelectorAll('.play-btn').forEach(btn => {
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        btn.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
